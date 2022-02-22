@@ -1,0 +1,61 @@
+{
+    "id": "org.kde.k3b",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "5.15-21.08",
+    "sdk": "org.kde.Sdk",
+    "command": "k3b",
+    "finish-args": [
+        "--device=dri",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland"
+    ],
+
+    "modules": [
+        "shared-modules/libmad/libmad.json",
+        {
+            "name": "libcue",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/lipnitsk/libcue/archive/v2.2.1.tar.gz",
+                    "sha256": "f27bc3ebb2e892cd9d32a7bee6d84576a60f955f29f748b9b487b173712f1200"
+                }
+            ]
+        },
+        {
+            "name": "libreplaygain",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                 {
+                    "type": "archive",
+                    "url": "https://files.musepack.net/source/libreplaygain_r475.tar.gz",
+                    "sha256": "8258bf785547ac2cda43bb195e07522f0a3682f55abe97753c974609ec232482"
+                }
+            ]
+        },
+        {
+            "name": "kcddb",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/21.12.2/src/libkcddb-21.12.2.tar.xz",
+                    "sha256": "2837d3574c004730a068d786ff67a8f1cab5bd1930a86c56d980963f5c5d6c1d"
+                }
+            ]
+        },
+        {
+            "name": "k3b",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/Attic/release-service/21.04.3/src/k3b-21.04.3.tar.xz",
+                    "sha256": "14ca29cf8a6b0e00a8a43dc56f6ee7f4d88d685bc1d3f2abed91312e58a398ea"
+                }
+            ]
+        }
+    ]
+}
