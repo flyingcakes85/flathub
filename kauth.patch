@@ -1,0 +1,34 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c3f24919..29dbe72f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -124,6 +124,9 @@ add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f02)
+ add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055800)
+ option(USE_UNITY_CMAKE_SUPPORT "Use UNITY cmake support (speedup compile time)" OFF)
+ 
++option(ENABLE_KAUTH_HELPER "Build and install ksysguardprocesslist_helper KAuth helper" ON)
++add_feature_info(KAUTH_HELPER ${ENABLE_KAUTH_HELPER} "Build and install ksysguardprocesslist_helper KAuth helper")
++
+ set(COMPILE_WITH_UNITY_CMAKE_SUPPORT OFF)
+ if (USE_UNITY_CMAKE_SUPPORT)
+     set(COMPILE_WITH_UNITY_CMAKE_SUPPORT ON)
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 8a8a5ffc..79cb0928 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -318,8 +318,10 @@ install(FILES data/kalarm.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR})
+ 
+ ########### KAuth helper ###############
+ 
+-add_executable(kalarm_helper rtcwakeaction.cpp ${libkalarm_common_SRCS})
+-target_link_libraries(kalarm_helper KF5::AuthCore KF5::I18n)
+-install(TARGETS kalarm_helper DESTINATION ${KAUTH_HELPER_INSTALL_DIR})
+-kauth_install_helper_files(kalarm_helper org.kde.kalarm.rtcwake root)
+-kauth_install_actions(org.kde.kalarm.rtcwake data/org.kde.kalarm.rtcwake.actions)
++if(ENABLE_KAUTH_HELPER)
++    add_executable(kalarm_helper rtcwakeaction.cpp ${libkalarm_common_SRCS})
++    target_link_libraries(kalarm_helper KF5::AuthCore KF5::I18n)
++    install(TARGETS kalarm_helper DESTINATION ${KAUTH_HELPER_INSTALL_DIR})
++    kauth_install_helper_files(kalarm_helper org.kde.kalarm.rtcwake root)
++    kauth_install_actions(org.kde.kalarm.rtcwake data/org.kde.kalarm.rtcwake.actions)
++endif()
